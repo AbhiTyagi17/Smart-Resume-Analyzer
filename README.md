@@ -17,3 +17,24 @@ A full-stack MERN application that analyzes resumes against job descriptions and
 **Backend:** Node.js, Express.js, Multer, pdf-parse
 
 ## Project Structure
+smart-resume-analyzer/
+├── client/          # React Frontend
+├── server/          # Node.js Backend
+├── README.md
+└── .gitignore
+
+## How to Run Locally
+
+### 1. Backend
+```bash
+cd server
+npm install
+node index.js
+
+2. Frontend
+Bashcd client
+npm install
+npm start
+
+Author
+Abhi Tyagi
