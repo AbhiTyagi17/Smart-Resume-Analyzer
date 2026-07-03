@@ -23,16 +23,15 @@ smart-resume-analyzer/
 ├── README.md
 └── .gitignore
 
-## How to Run Locally
+## How to Run Locally 
 
-### 1. Backend
-```bash
+1. Backend
 cd server
 npm install
 node index.js
 
 2. Frontend
-Bashcd client
+cd client
 npm install
 npm start
 
