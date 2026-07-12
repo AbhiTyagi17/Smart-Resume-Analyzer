@@ -11,6 +11,7 @@ client/build/
 # Server
 server/node_modules/
 server/*.log
+server/.env
 
 # IDE
 .vscode/
