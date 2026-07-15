@@ -32,6 +32,7 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
 
     let analysis;
     let usedFallback = false;
+    let fallbackReason = null;
 
     try {
       analysis = await analyzeWithAI(resumeText, jobDescription);
@@ -41,6 +42,7 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
       // instead of failing the whole request.
       console.error('⚠️ AI analysis failed, falling back to heuristic analysis:', aiError.message);
       usedFallback = true;
+      fallbackReason = aiError.message;
 
       const lowerResume = resumeText.toLowerCase();
       const lowerJobDesc = jobDescription.toLowerCase();
@@ -56,6 +58,7 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
     res.json({
       success: true,
       usedFallback,
+      fallbackReason,
       ...analysis,
     });
   } catch (error) {

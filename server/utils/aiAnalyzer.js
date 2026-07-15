@@ -1,5 +1,13 @@
 const { GoogleGenAI, Type } = require('@google/genai');
 
+if (!process.env.GEMINI_API_KEY) {
+  console.error(
+    '❌ GEMINI_API_KEY is not set. Check that server/.env exists, contains ' +
+    'GEMINI_API_KEY=..., and that require("dotenv").config() runs at the ' +
+    'very top of server.js before anything else.'
+  );
+}
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // Gemini's responseSchema constrains the model at the API level to return
@@ -57,6 +65,10 @@ Suggestions rules:
 - Reference specific missing skills, weak sections, or missing quantifiable achievements by name.`;
 
 async function analyzeWithAI(resumeText, jobDescription) {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error('GEMINI_API_KEY is not set — check server/.env and dotenv setup in server.js');
+  }
+
   const prompt = `RESUME TEXT:
 ${resumeText.slice(0, 8000)}
 
@@ -66,7 +78,7 @@ ${jobDescription.slice(0, 4000)}
 Analyze this resume against this job description.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-3-flash-preview',
     contents: prompt,
     config: {
       systemInstruction: SYSTEM_INSTRUCTION,
